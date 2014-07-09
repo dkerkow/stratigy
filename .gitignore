@@ -1,0 +1,5 @@
+# Ignore some files and folders from versioning:
+
+*.pyc
+*~
+.vagrant/
