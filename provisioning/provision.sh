@@ -41,7 +41,10 @@ service postgresql restart
 
 # Create system and database user 'stratigy':
 useradd stratigy --home /srv/stratigy --create-home --shell /bin/bash
-sudo -u postgres psql -c 'CREATE USER stratigy;'
+sudo -u postgres psql -c 'CREATE USER stratigy PASSWORD 'secret';'
+
+# add user stratigy to vagrant group for execution permission of app
+usermod -aG vagrant stratigy 
 
 # Setup databases:
 sudo -u postgres createdb stratigy_development --owner=stratigy
@@ -50,7 +53,3 @@ sudo -u postgres createdb stratigy_test --owner=stratigy
 # Setup PostGIS on databases
 sudo -u postgres psql -d stratigy_development -c 'CREATE EXTENSION postgis;'
 sudo -u postgres psql -d stratigy_test -c 'CREATE EXTENSION postgis;'
-
-# Setup schemas other than public to ease backups
-sudo -u postgres psql -d stratigy_development -c 'CREATE SCHEMA data;'
-sudo -u postgres psql -d stratigy_test -c 'CREATE SCHEMA data;'

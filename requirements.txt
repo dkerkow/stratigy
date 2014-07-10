@@ -1,1 +1,11 @@
 Flask==0.10.1
+<<<<<<< HEAD
+=======
+SQLAlchemy==0.9.6
+Flask-SQLAlchemy==1.0
+GeoAlchemy2==0.2.4
+Flask-WTF==0.9.5
+Werkzeug==0.9.6
+Jinja2==2.7.3
+psycopg2==2.5.3
+>>>>>>> install basic flask framework
