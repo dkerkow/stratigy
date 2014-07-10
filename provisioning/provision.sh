@@ -8,7 +8,9 @@ apt-get update
 
 # Install basic packages:
 apt-get install -y \
+    python-dev \
     python-software-properties \
+    python-pip \
     build-essential \
     git \
     libproj-dev \
@@ -19,6 +21,9 @@ apt-get install -y \
 sudo echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
     sudo apt-key add -
+
+# Install Python dependencies from Python Package Index:
+pip install -r /vagrant/requirements.txt
 
 # Update package index:
 apt-get update
