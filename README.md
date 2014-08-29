@@ -35,3 +35,24 @@ The properties of the virtual machine are configured in the Vagrantfile.
  # destroy virtual machine before rebuilding it:
  vagrant destroy
  ```
+ 
+ - run development server:
+ 
+ ```bash
+ vagrant ssh
+ 
+ # start as user stratigy
+ sudo su - stratigy
+ 
+ # change to app directory
+ cd /vagrant
+ 
+ # run server and create database on first run
+ python run.py
+ 
+ # site will be accessible on http://localhost:5000 in local browser
+ 
+ # to populate database with test data, run:
+ psql stratigy_development -f insert_test_data.sql
+ ``` 
+ 
