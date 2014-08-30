@@ -1,6 +1,6 @@
 from app import db
-
 from geoalchemy2.types import Geometry
+from sqlalchemy.dialects.postgresql import JSON
 
 # Define a base model for other database tables to inherit
 class Base(db.Model):
@@ -27,11 +27,15 @@ class Site(Base):
     # Location of the stratigraphic record:
     geom            = db.Column(Geometry(geometry_type='POINT', srid=4326))
     
+    # JSON field containing stratigraphic record
+    stratigraphy    = db.Column(JSON)
+
     # New instance instantiation procedure:
     def __init__(self, site_name, geom):
     
         self.site_name = site_name
         self.geom = geom
+        self.stratigraphy = stratigraphy
 
     def __repr__(self):
         return '<Site %r>' % self.site_name
