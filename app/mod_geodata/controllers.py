@@ -15,12 +15,11 @@ from app.mod_geodata.models import Site
 mod_geodata = Blueprint('geodata', __name__, url_prefix='/geodata')
 
 @app.route('/')
-@app.route('/index')
 def index():
-    return "Hello, World!"
+    return render_template('index.html')
 
 # Return map
-# (later this will be the place to search and place records)   
+# (later this will be the place to search and place records)
 @app.route('/map/', methods=['GET', 'POST'])
 def map():
     return render_template('geodata/map.html')
