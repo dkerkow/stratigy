@@ -20,3 +20,12 @@ def index():
 def map():
     return render_template('map.html')
 
+@app.route('/submit_record/', methods=['GET', 'POST'])
+def submit_record():
+    form = GeodataForm()
+    if form.validate_on_submit():
+        flash('Site succesfully submitted')
+        return redirect('/map')
+    return render_template('submit_record.html', 
+        title = 'Submit Record',
+        form = form)
