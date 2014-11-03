@@ -1,5 +1,6 @@
 from app import db
 from geoalchemy2.types import Geometry
+from geoalchemy2.elements import WKTElement
 from sqlalchemy.dialects.postgresql import JSON
 
 # Define a base model for other database tables to inherit
@@ -20,22 +21,24 @@ class Site(Base):
 
     __tablename__ = 'geodata_sites'
     __table_args__ = {"schema":"public"}
-    
+
     # Name of the stratigraphic record:
     site_name       = db.Column(db.String(128), nullable=False)
 
     # Location of the stratigraphic record:
     geom            = db.Column(Geometry(geometry_type='POINT', srid=4326))
-    
+
     # JSON field containing stratigraphic record
     stratigraphy    = db.Column(JSON)
 
     # New instance instantiation procedure:
-    def __init__(self, site_name, geom):
-    
+    def __init__(self, site_name, geom_x, geom_y):
+
+        geom = WKTElement('POINT({0} {1})'.format(geom_x, geom_y), srid=4326)
+
         self.site_name = site_name
         self.geom = geom
-        self.stratigraphy = stratigraphy
+#        self.stratigraphy = stratigraphy
 
     def __repr__(self):
         return '<Site %r>' % self.site_name

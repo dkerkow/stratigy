@@ -3,38 +3,39 @@
 
 {% block content %}
 
-<h1>Submit Record</h1>
+    <h2>Submit Record</h2>
 
-<form action="" method="post" name="submit_record">
-    {{form.hidden_tag()}}
-    <p>
-        Please enter a site name:<br>
-        {{form.site_name(size=40)}}<br>
-        {% for error in form.errors.site_name %}
-        <span style="color: red;">{{error}}</span>
-        {% endfor %}<br>
-    </p>
-    <p>
-        Please enter X and Y Coordinates in Web Mercartor Projection:<br> 
-        {{form.geom_x(size=40)}}
-        {% for error in form.errors.geom_x %}
-        <span style="color: red;">{{error}}</span>
-        {% endfor %}<br>
-        {{form.geom_y(size=40)}}
-        {% for error in form.errors.geom_y %}
-        <span style="color: red;">{{error}}</span>
-        {% endfor %}<br>        
-    </p>
-    <p>
-        Please enter stratigraphy in JSON format:<br>
-        {{form.strat_json(size=40)}}
-        {% for error in form.errors.strat_json %}
-        <span style="color: red;">{{error}}</span>
-        {% endfor %}<br>
-    </p>
-    <p>
-        <input type="submit" value="Submit">
-    </p>
-</form>
+    <form action="{{ url_for('submit_record') }}" method="post">
+        {{ form.hidden_tag() }}
+
+        <p>
+            Please enter a site name:<br>
+            {{ form.site_name(size=40) }}<br>
+            {% for error in form.errors.site_name %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}<br>
+        </p>
+        <p>
+            Please enter X and Y Coordinates in Web Mercartor Projection:<br>
+            {{ form.geom_x(size=40) }}
+            {% for error in form.errors.geom_x %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}<br>
+            {{ form.geom_y(size=40) }}
+            {% for error in form.errors.geom_y %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}<br>
+        </p>
+        <p>
+            Please enter stratigraphy in JSON format:<br>
+            {{ form.strat_json(size=40) }}
+            {% for error in form.errors.strat_json %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}<br>
+        </p>
+        <p>
+            <input type="submit" value="Submit">
+        </p>
+    </form>
 
 {% endblock %}

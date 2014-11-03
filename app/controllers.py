@@ -23,9 +23,17 @@ def map():
 @app.route('/submit_record/', methods=['GET', 'POST'])
 def submit_record():
     form = GeodataForm()
+
     if form.validate_on_submit():
-        flash('Site succesfully submitted')
+
+        site_name = request.form['site_name']
+        geom_x, geom_y = (request.form['geom_x'], request.form['geom_y'])
+
+        site = Site(site_name, geom_x, geom_y)
+        db.session.add(site)
+        db.session.commit()
+
+        flash('Record successfully submitted: ')
         return redirect('/map')
-    return render_template('submit_record.html', 
-        title = 'Submit Record',
-        form = form)
+
+    return render_template('submit_record.html', form=form)
