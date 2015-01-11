@@ -18,7 +18,7 @@ apt-get install -y \
     libgdal-dev
 
 # Add postgresql PPA:
-sudo echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+sudo echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
     sudo apt-key add -
 
@@ -30,18 +30,19 @@ apt-get update
 
 # Install Packages from PPAs:
 apt-get install -y \
-    nginx postgresql-9.3 \
-    postgresql-9.3-postgis \
+    nginx \
+    postgresql-9.4 \
+    postgresql-9.4-postgis \
     postgresql-contrib
 
 # deploy custom pg_hba.conf and restart postgres server:
-rm /etc/postgresql/9.3/main/pg_hba.conf
-ln -s /vagrant/provisioning/pg_hba.conf /etc/postgresql/9.3/main/pg_hba.conf
+rm /etc/postgresql/9.4/main/pg_hba.conf
+ln -s /vagrant/provisioning/pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
 service postgresql restart
 
 # Create system and database user 'stratigy':
 useradd stratigy --home /srv/stratigy --create-home --shell /bin/bash
-sudo -u postgres psql -c 'CREATE USER stratigy PASSWORD 'secret';'
+sudo -u postgres psql -c "CREATE USER stratigy PASSWORD 'secret';"
 
 # add user stratigy to vagrant group for execution permission of app
 usermod -aG vagrant stratigy 
