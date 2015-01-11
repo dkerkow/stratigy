@@ -1,5 +1,5 @@
 Flask==0.10.1
-SQLAlchemy==0.9.6
+SQLAlchemy==0.9.8
 Flask-SQLAlchemy==1.0
 GeoAlchemy2==0.2.4
 Flask-WTF==0.9.5
