@@ -42,3 +42,12 @@ def new_site():
 def sites():
     sites = Site.query.all()
     return render_template('sites.html', sites=sites)
+
+@app.route('/edit/<int:site_id>', methods=['GET', 'POST'])
+def edit(site_id=None):
+    try:
+        site = Site.query.get(site_id)
+    except:
+        return render_template('404.html'), 404
+    else:
+        return render_template('edit_site.html', site=site)
