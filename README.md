@@ -47,7 +47,12 @@ The properties of the virtual machine are configured in the Vagrantfile.
  # change to app directory
  cd /vagrant
  
- # run server and create database on first run
+ # to create database on first run, log into interactive ipython shell
+ python shell.py
+ >>> from app import db
+ >>> db.create_all()
+  
+ # run server 
  python run.py
  
  # site will be accessible on http://localhost:5000 in local browser
