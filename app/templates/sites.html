@@ -2,17 +2,21 @@
 
 {% block content %}
   <table class="table table-hover">
-    <tr valign="top">
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Location</th>
-    </tr>
-    {% for site in sites %}
-    <tr valign="top">
-      <td>{{ site.id }}</td>
-      <td>{{ site.site_name }}</td>
-      <td>geom</td>
-    </tr>
-    {% endfor %}
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for site in sites %}
+      <tr valign="top">
+        <td>{{ site.id }}</td>
+        <td>{{ site.site_name }}</td>
+        <td>geom</td>
+      </tr>
+      {% endfor %}
+    </tbody>
   </table>
 {% endblock %}
