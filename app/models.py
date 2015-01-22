@@ -26,6 +26,8 @@ class Site(Base):
     # Location of the stratigraphic record:
     geom            = db.Column(Geometry(geometry_type='POINT', srid=4326))
 
+    records         = db.relationship('Record', backref='site', lazy='dynamic')
+
     # New instance instantiation procedure:
     def __init__(self, site_name, geom_x, geom_y):
 
@@ -45,7 +47,7 @@ class Record(Base):
     __table_args__ = {"schema":"public"}
 
     # ID of corresponding site:
-    site_id         = db.Column(db.Integer, nullable=False)
+    site_id         = db.Column(db.Integer, db.ForeignKey('public.sites.id'))
 
     # depth values:
     depth           = db.Column(db.Numeric, nullable=True)
