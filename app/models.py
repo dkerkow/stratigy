@@ -1,7 +1,7 @@
 from app import db
 from geoalchemy2.types import Geometry
 from geoalchemy2.elements import WKTElement
-from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy.dialects.postgresql import JSONB
 
 # Define a base model for other database tables to inherit
 class Base(db.Model):
@@ -13,13 +13,11 @@ class Base(db.Model):
     date_modified = db.Column(db.DateTime,  default=db.func.current_timestamp(),
                                            onupdate=db.func.current_timestamp())
 
-
-# Database model that holds the basic element of stratigraphic records, inherited from model 'Base':
 class Site(Base):
 
-    """represents an x/y coordinate location."""
+    """represents location and metadata of a stratigraphic record"""
 
-    __tablename__ = 'geodata_sites'
+    __tablename__ = 'sites'
     __table_args__ = {"schema":"public"}
 
     # Name of the stratigraphic record:
@@ -28,8 +26,7 @@ class Site(Base):
     # Location of the stratigraphic record:
     geom            = db.Column(Geometry(geometry_type='POINT', srid=4326))
 
-    # JSON field containing stratigraphic record
-    stratigraphy    = db.Column(JSON)
+    records         = db.relationship('Record', backref='site', lazy='dynamic')
 
     # New instance instantiation procedure:
     def __init__(self, site_name, geom_x, geom_y):
@@ -38,7 +35,32 @@ class Site(Base):
 
         self.site_name = site_name
         self.geom = geom
-#        self.stratigraphy = stratigraphy
 
     def __repr__(self):
         return '<Site %r>' % self.site_name
+
+class Record(Base):
+
+    """represents single stratigraphic units"""
+
+    __tablename__ = 'records'
+    __table_args__ = {"schema":"public"}
+
+    # ID of corresponding site:
+    site_id         = db.Column(db.Integer, db.ForeignKey('public.sites.id'))
+
+    # depth values:
+    depth           = db.Column(db.Numeric, nullable=True)
+    upper_boundary  = db.Column(db.Numeric, nullable=True)
+    lower_boundary  = db.Column(db.Numeric, nullable=True)
+
+    # stratigraphic properties, represented as key/value store
+    properties      = db.Column(JSONB)
+
+    def __init__(self, depth = None, upper_boundary = None,
+            lower_boundary = None, site_id = None):
+
+        self.site_id = site_id
+        self.depth = depth
+        self.upper_boundary = upper_boundary
+        self.lower_boundary = lower_boundary

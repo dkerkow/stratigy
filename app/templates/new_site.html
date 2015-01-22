@@ -5,7 +5,7 @@
 
     <h2>Submit Record</h2>
 
-    <form action="{{ url_for('submit_record') }}" method="post">
+    <form action="{{ url_for('new_site') }}" method="post">
         {{ form.hidden_tag() }}
 
         <p>
@@ -24,13 +24,6 @@
             {{ form.geom_y(size=40) }}
             {% for error in form.errors.geom_y %}
             <span style="color: red;">{{ error }}</span>
-            {% endfor %}<br>
-        </p>
-        <p>
-            Please enter stratigraphy in JSON format:<br>
-            {{ form.strat_json(size=40) }}
-            {% for error in form.errors.strat_json %}
-            <span style="color: red;">{{error}}</span>
             {% endfor %}<br>
         </p>
         <p>
