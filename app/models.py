@@ -57,9 +57,10 @@ class Record(Base):
     # stratigraphic properties, represented as key/value store
     properties      = db.Column(JSONB)
 
-    def __init__(self, depth = None, upper_buondary = None,
-            lower_boundary = None):
+    def __init__(self, depth = None, upper_boundary = None,
+            lower_boundary = None, site_id = None):
 
+        self.site_id = site_id
         self.depth = depth
         self.upper_boundary = upper_boundary
         self.lower_boundary = lower_boundary
