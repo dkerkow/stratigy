@@ -3,7 +3,7 @@ from flask import Blueprint, request, render_template, \
                   flash, g, session, redirect, url_for
 
 from app import app, db
-from app.forms import GeodataForm
+from app.forms import NewSiteForm
 from app.models import Site
 
 ### Controllers ###
@@ -20,9 +20,9 @@ def index():
 def map():
     return render_template('map.html')
 
-@app.route('/submit_record/', methods=['GET', 'POST'])
-def submit_record():
-    form = GeodataForm()
+@app.route('/new_site/', methods=['GET', 'POST'])
+def new_site():
+    form = NewSiteForm()
 
     if form.validate_on_submit():
 
@@ -36,4 +36,4 @@ def submit_record():
         flash('Record successfully submitted: ')
         return redirect('/map')
 
-    return render_template('submit_record.html', form=form)
+    return render_template('new_site.html', form=form)
