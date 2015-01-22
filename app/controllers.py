@@ -37,3 +37,8 @@ def new_site():
         return redirect('/map')
 
     return render_template('new_site.html', form=form)
+
+@app.route('/sites/', methods=['GET'])
+def sites():
+    sites = Site.query.all()
+    return render_template('sites.html', sites=sites)
