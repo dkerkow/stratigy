@@ -46,7 +46,7 @@ def sites():
 @app.route('/edit/<int:site_id>', methods=['GET', 'POST'])
 def edit(site_id=None):
     try:
-        site = Site.query.get(site_id)
+        site = Site.query.get_or_404(site_id)
     except:
         return render_template('404.html'), 404
     else:
