@@ -4,7 +4,8 @@ from flask import Blueprint, request, render_template, \
 
 from app import app, db
 from app.forms import NewSiteForm
-from app.models import Site
+from app.forms import NewRecordForm
+from app.models import Site, Record
 
 ### Controllers ###
 
@@ -45,9 +46,35 @@ def sites():
 
 @app.route('/edit/<int:site_id>', methods=['GET', 'POST'])
 def edit(site_id=None):
+
+    # POST
+    form = NewRecordForm()
+    if form.validate_on_submit():
+
+        depth           = request.form['depth']
+        upper_boundary  = request.form['upper_boundary']
+        lower_boundary  = request.form['lower_boundary']
+
+        attribute       = request.form['attribute']
+        value           = request.form['value']
+
+        record = Record(
+            site_id=site_id,
+            depth=depth,
+            upper_boundary=upper_boundary,
+            lower_boundary=lower_boundary
+        )
+
+        db.session.add(record)
+        db.session.commit()
+
+        flash('Record successfully submitted: ')
+        return redirect(url_for('edit', form=form, site_id=site_id))
+
+    # GET
     try:
         site = Site.query.get_or_404(site_id)
     except:
         return render_template('404.html'), 404
     else:
-        return render_template('edit_site.html', site=site)
+        return render_template('edit_site.html', form=form, site=site)
