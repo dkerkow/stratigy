@@ -77,4 +77,5 @@ def edit(site_id=None):
     except:
         return render_template('404.html'), 404
     else:
-        return render_template('edit_site.html', form=form, site=site)
+        records = Record.query.filter_by(site_id=site_id)
+        return render_template('edit_site.html', form=form, site=site, records=records)

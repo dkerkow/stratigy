@@ -7,7 +7,7 @@
 
     Description, comments
 
-
+    <!-- Form -->
     <form action="{{ url_for('edit', site_id=site.id) }}" method="post">
         {{ form.hidden_tag() }}
 
@@ -46,5 +46,31 @@
             <input type="submit" value="Submit">
         </p>
     </form>
+
+    <!-- Table -->
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Record-ID</th>
+          <th scope="col">Depth</th>
+          <th scope="col">Upper Boundary</th>
+          <th scope="col">Lower Boundary</th>
+          <th scope="col">Attribute</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in records %}
+        <tr valign="top">
+          <td>{{ record.id }}</td>
+          <td>{{ record.depth }}</td>
+          <td>{{ record.upper_boundary }}</td>
+          <td>{{ record.lower_boundary }}</td>
+          <td>{{ record.attribute }}</td>
+          <td>{{ record.value }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
 {% endblock %}
