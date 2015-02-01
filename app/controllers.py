@@ -69,7 +69,7 @@ def edit(site_id=None):
         db.session.commit()
 
         flash('Record saved! ')
-        return redirect(url_for('edit', form=form, site_id=site_id))
+        return redirect(url_for('edit', site_id=site_id))
 
     # GET
     try:
