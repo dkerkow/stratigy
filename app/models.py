@@ -58,9 +58,10 @@ class Record(Base):
     properties      = db.Column(JSONB)
 
     def __init__(self, depth = None, upper_boundary = None,
-            lower_boundary = None, site_id = None):
+            lower_boundary = None, site_id = None, properties = None):
 
         self.site_id = site_id
         self.depth = depth
         self.upper_boundary = upper_boundary
         self.lower_boundary = lower_boundary
+        self.properties = properties

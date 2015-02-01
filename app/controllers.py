@@ -1,6 +1,7 @@
 # Import flask dependencies
 from flask import Blueprint, request, render_template, \
                   flash, g, session, redirect, url_for
+import json
 
 from app import app, db
 from app.forms import NewSiteForm
@@ -58,11 +59,14 @@ def edit(site_id=None):
         attribute       = request.form['attribute']
         value           = request.form['value']
 
+        properties = { attribute : value }
+
         record = Record(
             site_id=site_id,
             depth=depth,
             upper_boundary=upper_boundary,
-            lower_boundary=lower_boundary
+            lower_boundary=lower_boundary,
+            properties=json.dumps(properties)
         )
 
         db.session.add(record)
