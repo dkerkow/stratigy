@@ -27,6 +27,11 @@
         </button>
         <a class="navbar-brand" href="/">Stratigy</a>
         <div class="nav-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href=" {{ url_for('map') }}">Site Map</a></li>
+            <li><a href=" {{ url_for('sites') }} ">Site List</a></li>
+            <li><a href=" {{ url_for('new_site') }} ">New Site</a></li>
+          </ul>
           {% block navbar_right %}
           <ul class="nav navbar-nav pull-right">
             {% if not session.logged_in %}
