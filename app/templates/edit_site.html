@@ -3,74 +3,96 @@
 
 {% block content %}
 
+  <div class="page-header">
     <h2>Site: {{ site.site_name }}</h2>
+  </div>
 
+  <p>
     Description, comments
+  </p>
 
-    <!-- Form -->
-    <form action="{{ url_for('edit', site_id=site.id) }}" method="post">
-        {{ form.hidden_tag() }}
+  <!-- Form -->
+  <form action="{{ url_for('edit', site_id=site.id) }}" method="post">
+      {{ form.hidden_tag() }}
 
-        <p>
-            Depth:<br>
-            {{ form.depth(size=20) }}<br>
-            {% for error in form.errors.depth %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}<br>
-
-            Upper Boundary:<br>
-            {{ form.upper_boundary(size=20) }}<br>
-            {% for error in form.errors.upper_boundary %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}<br>
-
-            Lower Boundary:<br>
-            {{ form.lower_boundary(size=20) }}<br>
-            {% for error in form.errors.lower_boundary %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}<br>
-        </p>
-        <p>
-            Attribute and Value:<br>
-            {{ form.attribute(size=40) }}
-            {% for error in form.errors.attribute %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}<br>
-
-            {{ form.value(size=40) }}
-            {% for error in form.errors.value %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}<br>
-        </p>
-        <p>
-            <input type="submit" value="Submit">
-        </p>
-    </form>
-
-    <!-- Table -->
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Record-ID</th>
-          <th scope="col">Depth</th>
-          <th scope="col">Upper Boundary</th>
-          <th scope="col">Lower Boundary</th>
-          <th scope="col">Attribute</th>
-          <th scope="col">Value</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for record in records %}
-        <tr valign="top">
-          <td>{{ record.id }}</td>
-          <td>{{ record.depth }}</td>
-          <td>{{ record.upper_boundary }}</td>
-          <td>{{ record.lower_boundary }}</td>
-          <td>{{ record.attribute }}</td>
-          <td>{{ record.value }}</td>
-        </tr>
+    <div class="row">
+      <div class="form-group col-xs-4">
+        {{ form.depth.label }}
+        {{ form.depth(size=20, class="form-control", placeholder="Depth") }}
+        {% for error in form.errors.depth %}
+        <span style="color: red;">{{ error }}</span>
         {% endfor %}
-      </tbody>
-    </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-xs-4">
+        {{ form.upper_boundary.label }}
+        {{ form.upper_boundary(size=20, class="form-control", placeholder="Upper Boundary") }}
+        {% for error in form.errors.upper_boundary %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-xs-4">
+        {{ form.lower_boundary.label }}
+        {{ form.lower_boundary(size=20, class="form-control", placeholder="Lower Boundary") }}
+        {% for error in form.errors.lower_boundary %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-xs-4">
+        {{ form.attribute.label }}
+        {{ form.attribute(size=40, class="form-control", placeholder="Attribute") }}
+        {% for error in form.errors.attribute %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-xs-4">
+        {{ form.value.label}}
+        {{ form.value(size=40, class="form-control", placeholder="Value") }}
+        {% for error in form.errors.value %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+  </form>
+
+  <!-- Table -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Record-ID</th>
+        <th scope="col">Depth</th>
+        <th scope="col">Upper Boundary</th>
+        <th scope="col">Lower Boundary</th>
+        <th scope="col">Attribute</th>
+        <th scope="col">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in records %}
+      <tr valign="top">
+        <td>{{ record.id }}</td>
+        <td>{{ record.depth }}</td>
+        <td>{{ record.upper_boundary }}</td>
+        <td>{{ record.lower_boundary }}</td>
+        <td>{{ record.attribute }}</td>
+        <td>{{ record.value }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
 {% endblock %}

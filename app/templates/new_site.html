@@ -3,32 +3,45 @@
 
 {% block content %}
 
-    <h2>Create A New Site</h2>
+  <div class="page-header">
+    <h1>Create A New Site</h1>
+  </div>
 
-    <form action="{{ url_for('new_site') }}" method="post">
-        {{ form.hidden_tag() }}
+  <form method="post" action="{{ url_for('new_site') }}">
+    {{ form.hidden_tag() }}
 
-        <p>
-            Please enter a site name:<br>
-            {{ form.site_name(size=40) }}<br>
-            {% for error in form.errors.site_name %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}<br>
-        </p>
-        <p>
-            Please enter X and Y Coordinates in Web Mercartor Projection:<br>
-            {{ form.geom_x(size=40) }}
-            {% for error in form.errors.geom_x %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}<br>
-            {{ form.geom_y(size=40) }}
-            {% for error in form.errors.geom_y %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}<br>
-        </p>
-        <p>
-            <input type="submit" value="Submit">
-        </p>
-    </form>
+    <div class="row">
+      <div class="form-group col-xs-4">
+        {{ form.site_name.label }}
+        {{ form.site_name(size=40, class="form-control", placeholder="Site name") }}
+        {% for error in form.errors.site_name %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}<br>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-xs-4">
+        {{ form.geom_x.label }}
+        {{ form.geom_x(size=40, class="form-control", placeholder="Longitude") }}
+        {% for error in form.errors.geom_x %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}<br>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-xs-4">
+        {{ form.geom_y.label }}
+        {{ form.geom_y(size=40, class="form-control", placeholder="Latitude") }}
+        {% for error in form.errors.geom_y %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}<br>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+  </form>
 
 {% endblock %}

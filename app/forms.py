@@ -12,17 +12,17 @@ from wtforms.validators import Required
 class NewSiteForm(Form):
     site_name   = TextField('Site Name', [
                 Required(message='Forgot your email address?')])
-    geom_x      = DecimalField('X Coordinate', [
+    geom_x      = DecimalField('Longitude', [
                 Required(message='You must provide coordinates.')])
-    geom_y      = DecimalField('Y Coordinate', [
+    geom_y      = DecimalField('Latitude', [
                 Required(message='You must provide coordinates.')])
 
 class NewRecordForm(Form):
     # 'site_id' is being injected in the controller
-    depth           = DecimalField('depth of the record')
-    upper_boundary  = DecimalField('upper bound of the record')
-    lower_boundary  = DecimalField('lower bound of the record')
-    attribute       = TextField('attribute name', [
+    depth           = DecimalField('Depth of the record')
+    upper_boundary  = DecimalField('Upper bound of the record')
+    lower_boundary  = DecimalField('Lower bound of the record')
+    attribute       = TextField('Attribute name', [
                     Required(message='Please enter an attribute')])
-    value           = TextField('value', [
+    value           = TextField('Value', [
                     Required(message='Please enter a value')])
