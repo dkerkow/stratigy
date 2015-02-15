@@ -23,10 +23,7 @@
     <h2>Site: {{ site.site_name }}</h2>
   </div>
 
-  <!-- Baustelle Anfang ___________________________________________________ -->
-
   <div class="row">
-
     <div class="col-xs-12 col-md-6">
       <div class="panel panel-default">
         <div class="panel-body">
@@ -34,7 +31,24 @@
           <div id='map'></div>
 
           <script>
-            var map = L.mapbox.map('map', 'leak-my-brain.ipkfmkei');
+            var map = L.mapbox.map('map', 'leak-my-brain.ipkfmkei')
+              .setView([42.1456507922706, 13.1399059295654], 12);
+
+            L.mapbox.featureLayer({
+              type: 'Feature',
+              geometry: {
+                  type: 'Point',
+                  coordinates: [
+                    13.139820098877,
+                    42.455871538095
+                  ]
+              },
+              properties: {
+                  title: 'Site XY',
+                  description: 'Description Placeholder',
+                  'marker-size': 'large',
+              }
+            }).addTo(map);
           </script>
 
         </div>
@@ -44,10 +58,7 @@
     <div class="col-xs-12 col-md-6">
       Placeholder for Metadata
     </div>
-
   </div>
-
-  <!-- Baustelle Ende _____________________________________________________ -->
 
   <!-- Panel -->
   <div class="panel panel-default">
