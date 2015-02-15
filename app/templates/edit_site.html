@@ -1,15 +1,53 @@
 {% extends "base.html" %}
 {% block title %} - Edit Site{% endblock %}
 
+{% block head %}
+
+  {{ super() }}
+
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
+
+  <style>
+    #map {
+      width: auto;
+      height: 300px;
+    }
+  </style>
+
+{% endblock %}
+
 {% block content %}
 
   <div class="page-header">
     <h2>Site: {{ site.site_name }}</h2>
   </div>
 
-  <p>
-    Description, comments
-  </p>
+  <!-- Baustelle Anfang ___________________________________________________ -->
+
+  <div class="row">
+
+    <div class="col-xs-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+          <div id='map'></div>
+
+          <script>
+            var map = L.mapbox.map('map', 'leak-my-brain.ipkfmkei');
+          </script>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6">
+      Placeholder for Metadata
+    </div>
+
+  </div>
+
+  <!-- Baustelle Ende _____________________________________________________ -->
 
   <!-- Panel -->
   <div class="panel panel-default">
@@ -102,5 +140,5 @@
     </tbody>
   </table>
   <!-- Table End-->
-  
+
 {% endblock %}
