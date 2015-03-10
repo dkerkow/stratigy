@@ -3,6 +3,7 @@
 import IPython
 
 from app import *
+from app.models import *
 
 welcome_message = """
 Stratigy Flask Shell

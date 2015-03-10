@@ -32,23 +32,12 @@
 
           <script>
             var map = L.mapbox.map('map', 'leak-my-brain.ipkfmkei')
-              .setView([42.1456507922706, 13.1399059295654], 12);
+              .setView([0, 0], 0);
 
-            L.mapbox.featureLayer({
-              type: 'Feature',
-              geometry: {
-                  type: 'Point',
-                  coordinates: [
-                    13.139820098877,
-                    42.455871538095
-                  ]
-              },
-              properties: {
-                  title: 'Site XY',
-                  description: 'Description Placeholder',
-                  'marker-size': 'large',
-              }
-            }).addTo(map);
+            var featureLayer = L.mapbox.featureLayer()
+              .addTo(map);
+
+            featureLayer.loadURL('{{ url_for('data', site_id=site_id) }}');
           </script>
 
         </div>
