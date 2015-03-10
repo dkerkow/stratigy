@@ -1,73 +1,118 @@
 {% extends "base.html" %}
 {% block title %} - Edit Site{% endblock %}
 
+{% block head %}
+
+  {{ super() }}
+
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
+
+  <style>
+    #map {
+      width: auto;
+      height: 300px;
+    }
+  </style>
+
+{% endblock %}
+
 {% block content %}
 
   <div class="page-header">
     <h2>Site: {{ site.site_name }}</h2>
   </div>
 
-  <p>
-    Description, comments
-  </p>
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-body">
 
-  <!-- Form -->
-  <form action="{{ url_for('edit', site_id=site.id) }}" method="post">
-      {{ form.hidden_tag() }}
+          <div id='map'></div>
 
-    <div class="row">
-      <div class="form-group col-xs-4">
-        {{ form.depth.label }}
-        {{ form.depth(size=20, class="form-control", placeholder="Depth") }}
-        {% for error in form.errors.depth %}
-        <span style="color: red;">{{ error }}</span>
-        {% endfor %}
+          <script>
+            var map = L.mapbox.map('map', 'leak-my-brain.ipkfmkei')
+              .setView([0, 0], 0);
+
+            var featureLayer = L.mapbox.featureLayer()
+              .addTo(map);
+
+            featureLayer.loadURL('{{ url_for('data', site_id=site_id) }}');
+          </script>
+
+        </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="form-group col-xs-4">
-        {{ form.upper_boundary.label }}
-        {{ form.upper_boundary(size=20, class="form-control", placeholder="Upper Boundary") }}
-        {% for error in form.errors.upper_boundary %}
-        <span style="color: red;">{{ error }}</span>
-        {% endfor %}
-      </div>
+    <div class="col-xs-12 col-md-6">
+      Placeholder for Metadata
+    </div>
+  </div>
+
+  <!-- Panel -->
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">Add Record</h3>
     </div>
 
-    <div class="row">
-      <div class="form-group col-xs-4">
-        {{ form.lower_boundary.label }}
-        {{ form.lower_boundary(size=20, class="form-control", placeholder="Lower Boundary") }}
-        {% for error in form.errors.lower_boundary %}
-        <span style="color: red;">{{ error }}</span>
-        {% endfor %}
+    <!-- Panel Body -->
+    <div class="panel-body">
+
+      <!-- Row -->
+      <div class="row">
+        <!-- Form -->
+        <form action="{{ url_for('edit', site_id=site.id) }}" method="post">
+            {{ form.hidden_tag() }}
+        <div class="form-group col-xs-2">
+          <!--{{ form.depth.label }}-->
+          {{ form.depth(size=20, class="form-control", placeholder="Depth") }}
+          {% for error in form.errors.depth %}
+          <span style="color: red;">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group col-xs-2">
+          <!--{{ form.upper_boundary.label }}-->
+          {{ form.upper_boundary(size=20, class="form-control", placeholder="Upper Boundary") }}
+          {% for error in form.errors.upper_boundary %}
+          <span style="color: red;">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group col-xs-2">
+          <!--{{ form.lower_boundary.label }}-->
+          {{ form.lower_boundary(size=20, class="form-control", placeholder="Lower Boundary") }}
+          {% for error in form.errors.lower_boundary %}
+          <span style="color: red;">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group col-xs-2">
+          <!--{{ form.attribute.label }}-->
+          {{ form.attribute(size=40, class="form-control", placeholder="Attribute") }}
+          {% for error in form.errors.attribute %}
+          <span style="color: red;">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group col-xs-2">
+          {{ form.value(size=40, class="form-control", placeholder="Value") }}
+          <!--{{ form.value.label}}-->
+          {% for error in form.errors.value %}
+          <span style="color: red;">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
       </div>
+      <!-- End Row -->
     </div>
-
-    <div class="row">
-      <div class="form-group col-xs-4">
-        {{ form.attribute.label }}
-        {{ form.attribute(size=40, class="form-control", placeholder="Attribute") }}
-        {% for error in form.errors.attribute %}
-        <span style="color: red;">{{ error }}</span>
-        {% endfor %}
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="form-group col-xs-4">
-        {{ form.value.label}}
-        {{ form.value(size=40, class="form-control", placeholder="Value") }}
-        {% for error in form.errors.value %}
-        <span style="color: red;">{{ error }}</span>
-        {% endfor %}
-      </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-
-  </form>
+    <!-- Panel Body End-->
+  </div>
+  <!-- End Panel -->
 
   <!-- Table -->
   <table class="table table-hover">
@@ -94,5 +139,6 @@
       {% endfor %}
     </tbody>
   </table>
+  <!-- Table End-->
 
 {% endblock %}

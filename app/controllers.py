@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 # Import flask dependencies
 from flask import Blueprint, request, render_template, \
-                  flash, g, session, redirect, url_for
+                  flash, g, session, redirect, url_for, Response
 import json
 
 from app import app, db
@@ -82,4 +84,38 @@ def edit(site_id=None):
         return render_template('404.html'), 404
     else:
         records = Record.query.filter_by(site_id=site_id)
-        return render_template('edit_site.html', form=form, site=site, records=records)
+
+        return render_template(
+            'edit_site.html',
+            site_id=site_id,
+            form=form,
+            site=site,
+            records=records
+        )
+
+
+@app.route('/data/<int:site_id>', methods=['GET'])
+def data(site_id=None):
+    try:
+        site = Site.query.get_or_404(site_id)
+
+    except:
+        resp = Response(status=404)
+        return resp
+
+    else:
+        geom = db.session.scalar(site.geom.ST_AsGeoJSON())
+
+        geojson_data = {
+            u'type': u'Feature',
+            u'geometry': json.loads(geom),
+            u'properties': {
+                u'title': u'Site Name',
+                u'description': u'Description Placeholder',
+                u'marker-size': u'large',
+            }
+        }
+
+        geojson = json.dumps(geojson_data)
+        resp = Response(geojson, status=200, mimetype='application/json')
+        return resp
