@@ -3,7 +3,8 @@
 # Import flask dependencies
 from flask import Blueprint, request, render_template, \
                   flash, g, session, redirect, url_for, Response
-import json
+
+import simplejson as json
 
 from app import app, db
 from app.forms import NewSiteForm
@@ -68,7 +69,7 @@ def edit(site_id=None):
             depth=depth,
             upper_boundary=upper_boundary,
             lower_boundary=lower_boundary,
-            properties=json.dumps(properties)
+            properties=properties
         )
 
         db.session.add(record)
@@ -106,6 +107,19 @@ def data(site_id=None):
     else:
         geom = db.session.scalar(site.geom.ST_AsGeoJSON())
 
+        records = Record.query.filter_by(site_id=site_id)
+
+        record_dict = {}
+
+        for record in records:
+            properties_dict = json.loads(record.properties)
+            record_dict[record.id] = {
+                'depth': record.depth,
+                'upper_boundary': record.upper_boundary,
+                'lower_boundary': record.lower_boundary,
+                'properties': properties_dict
+            }
+
         geojson_data = {
             u'type': u'Feature',
             u'geometry': json.loads(geom),
@@ -113,6 +127,7 @@ def data(site_id=None):
                 u'title': u'Site Name',
                 u'description': u'Description Placeholder',
                 u'marker-size': u'large',
+                u'strat_units': record_dict,
             }
         }
 
