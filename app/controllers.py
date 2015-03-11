@@ -62,6 +62,15 @@ def edit(site_id=None):
         attribute       = request.form['attribute']
         value           = request.form['value']
 
+        # try if value can be cast to integer or float:
+        try:
+            value = int(value)
+        except ValueError:
+            try:
+                value = float(value)
+            except ValueError:
+                value = value
+
         properties = { attribute : value }
 
         record = Record(
