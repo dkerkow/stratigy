@@ -1,0 +1,29 @@
+#!/bin/bash
+
+NAME="stratigy"
+FLASKDIR=/srv/stratigy
+VENVDIR=/srv/stratigy/venv
+SOCKFILE=/srv/stratigy/sock
+USER=stratigy
+GROUP=stratigy
+NUM_WORKERS=2
+
+echo "Starting $NAME"
+
+# activate the virtualenv
+cd $VENVDIR
+source bin/activate
+
+export PYTHONPATH=$FLASKDIR:$PYTHONPATH
+
+# Create the run directory if it doesn't exist
+RUNDIR=$(dirname $SOCKFILE)
+test -d $RUNDIR || mkdir -p $RUNDIR
+
+# Start your unicorn
+exec gunicorn app:app -b 127.0.0.1:5000 \
+  --name $NAME \
+  --workers $NUM_WORKERS \
+  --user=$USER --group=$GROUP \
+  --log-level=info \
+  --bind=unix:$SOCKFILE

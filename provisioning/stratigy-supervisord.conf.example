@@ -1,0 +1,6 @@
+[program:stratigy]
+command=/srv/gunicorn_start.sh
+autorestart=true
+stdout_logfile=/var/log/gunicorn_supervisor.log
+redirect_stderr=True
+user=root
