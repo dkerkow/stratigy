@@ -2,6 +2,131 @@
 {% block title %} - About{% endblock %}
 {% block content %}
 
+<h1>Introducing Stratigy</h1>
 
+<p>
+  Stratigy is an early prototype of a server application for storing
+  stratigraphic data in a simple, yet powerful way. I started
+  development as part of my master thesis.
+</p>
+
+<p>
+  <em>
+    "No thanks, I always store my stratigraphic data in a spreadsheet."
+  </em>
+</p>
+
+<p>
+  Take a moment and think about what makes up stratigraphic data.
+</p>
+<p>
+  Stratigraphic datasets basically consist of a location and a set of
+  stratigraphic records. The location on the earths surface can be
+  represented by coordinates. This is what I call a "site". It can be a
+  drilling hole, an outcrop, or even an archeological excavation.
+<p>
+  The other essential part of a stratigraphic dataset is the "record".
+</p>
+<p>
+  Records are stratigraphic information of any kind, be it lithology,
+  fossils, chronostratigraphic markers or soil color. There is virtually
+  no limit to the possible values you can assign for a stratigraphic
+  record. A record refers to the geological term of "stratum",
+  “horizon” in soil science or simply a layer with a common property.
+  Each record has a depth below surface, or an upper and a lower
+  boundary, if it is a massive layer. Each of those records belonging
+  to a site can have an arbitrary number of properties.
+</p>
+<p>
+  Stratigy is build with the intention to be able to store all of that
+  possible information, and make it exchangable for scientists and
+  institutions. Because there are so many possible use cases and
+  attributes for a record, Stratigy stores these records as
+  attribute=value combonations. Therefor there is no need for the
+  database to know about possible attributes and values, it just takes
+  and stores them.
+</p>
+<p>
+  Now remember your spreadsheets. To collaborate with others, you always
+  have to exchange files or keep them updated. And you always have to
+  keep an eye on the data structure, because spreadsheets have a static
+  column layout.
+</p>
+<p>
+  Think instead about an open ecosystem of stratigraphic software,
+  Stratigy being a core component to store them, and exchange them with
+  others. Stratigy has an experimental API
+  (application programming interface), and it will enable endless
+  possibilites:
+
+  <ul>
+    <li>Think about mobile apps for data collection in the field or in
+      the lab
+    </li>
+    <li>The database allows searching for specific attributes or
+      datasets in your area of interest
+    </li>
+    <li>Imagine desktop aplications for analyzing and visualizing
+      stratigraphic data, without the need for manual data householding
+    </li>
+    <li>Reusable stylesheets for visualization will enable scientists
+      to produce detailed, yet  stunning graphics from all their data,
+      by automating the whole workflow.
+    </li>
+  </ul>
+</p>
+
+<h2>What can Stratigy do yet?</h2>
+
+<p>
+  There is a test server on
+  <a href="http://stratigy.danielkerkow.de">
+    stratigy.danielkerkow.de
+  </a>, where you can:
+
+  <ul>
+    <li>Create sites</li>
+    <li>See a list of sites</li>
+    <li>Get a detailed view of a site, with a marker on a map, additional
+      information, and the list of records</li>
+    <li>create new records for a site</li>
+    <li>get a valid GeoJSON, with the records as nested dictionary (in the URL, replace "edit" with "data")</li>
+  </ul>
+</p>
+
+<h2>Known Issues</h2>
+
+<p>
+  <ul>
+    <li>Attributes and values of a record are not shown in the record
+      list (but they are stored in the database and accesible via API
+    </li>
+    <li>There is no user management layer yet, all your created sites
+      and records are accesible to everone, so be sure to not store any
+      sensible information
+    </li>
+    <li>The database model is not final, any change in the model
+      requires dropping all data. As soon as possible I will create a
+      database migration procedure, that allows to keep the data when
+      upgrading.
+    </li>
+    <li>There is no client software yet. It will be up to other
+      developers to create applications that speak with the API. I am
+      working on a simple plotting and visualization client, but just
+      for demonstration purposes.
+    </li>
+  </ul>
+</p>
+
+<h2>Stratigy needs you</h2>
+
+<p>
+  stratigy is not yet ready for everyday use. But I want you to test it,
+  break it, and give me feedback about it. If you are a developer or are
+  interested in creating a stratigraphic data workflow for the 21st
+  century, have a look into the the source code on github, or make
+  yourself familiar with the API, and start developing a client for
+  working with stratigryphic data.
+</p>
 
 {% endblock %}
