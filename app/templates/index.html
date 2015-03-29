@@ -4,9 +4,18 @@
 
 <div class="jumbotron">
   <h1>Welcome to Stratigy!</h1>
-  <p>Stratigy is here to help you record, store, share, analyze and vizualize
-      your stratigraphic data.</p>
-  <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+  <p>
+    Stratigy is here to help you store, share, analyze and vizualize
+    your stratigraphic data. This is an early prototype of a server
+    application for storing stratigraphic data in a simple, yet
+    powerful way. I started development as part of my master thesis.
+  </p>
+  <p>
+    <a class="btn btn-primary btn-lg" role="button" href="{{ url_for('about') }}">Learn more</a>
+    <a class="btn btn-default btn-lg" role="button" href="https://github.com/dkerkow/stratigy">
+      View on GitHub
+    </a>
+  </p>
 </div>
 
 {% endblock %}

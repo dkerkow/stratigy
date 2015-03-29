@@ -21,6 +21,10 @@ def not_found(error):
 def index():
     return render_template('index.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/map/', methods=['GET', 'POST'])
 def map():
     return render_template('map.html')
