@@ -66,7 +66,7 @@
             {{ form.hidden_tag() }}
         <div class="form-group col-xs-2">
           <!--{{ form.depth.label }}-->
-          {{ form.depth(size=20, class="form-control", placeholder="Depth") }}
+          {{ form.depth(size=20, class="form-control", placeholder="Depth [m]") }}
           {% for error in form.errors.depth %}
           <span style="color: red;">{{ error }}</span>
           {% endfor %}
@@ -74,7 +74,7 @@
 
         <div class="form-group col-xs-2">
           <!--{{ form.upper_boundary.label }}-->
-          {{ form.upper_boundary(size=20, class="form-control", placeholder="Upper Boundary") }}
+          {{ form.upper_boundary(size=20, class="form-control", placeholder="Upper Boundary [m]") }}
           {% for error in form.errors.upper_boundary %}
           <span style="color: red;">{{ error }}</span>
           {% endfor %}
@@ -82,7 +82,7 @@
 
         <div class="form-group col-xs-2">
           <!--{{ form.lower_boundary.label }}-->
-          {{ form.lower_boundary(size=20, class="form-control", placeholder="Lower Boundary") }}
+          {{ form.lower_boundary(size=20, class="form-control", placeholder="Lower Boundary [m]") }}
           {% for error in form.errors.lower_boundary %}
           <span style="color: red;">{{ error }}</span>
           {% endfor %}
