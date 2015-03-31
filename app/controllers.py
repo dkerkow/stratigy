@@ -125,13 +125,13 @@ def data(site_id=None):
         record_dict = {}
 
         for record in records:
-            properties_dict = json.loads(record.properties)
-            record_dict[record.id] = {
-                'depth': record.depth,
-                'upper_boundary': record.upper_boundary,
-                'lower_boundary': record.lower_boundary
-            }
-            record_dict[record.id].update(properties_dict)
+            properties = json.loads(record.properties)
+            record_dict[record.id] = properties
+            record_dict[record.id].update(
+                    depth=record.depth,
+                    upper_boundary=record.upper_boundary,
+                    lower_boundary=record.lower_boundary
+            )
 
         geojson_data = {
             u'type': u'Feature',
