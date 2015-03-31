@@ -129,9 +129,9 @@ def data(site_id=None):
             record_dict[record.id] = {
                 'depth': record.depth,
                 'upper_boundary': record.upper_boundary,
-                'lower_boundary': record.lower_boundary,
-                'properties': properties_dict
+                'lower_boundary': record.lower_boundary
             }
+            record_dict[record.id].update(properties_dict)
 
         geojson_data = {
             u'type': u'Feature',
