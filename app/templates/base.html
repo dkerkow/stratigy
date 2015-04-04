@@ -32,7 +32,8 @@
             <li><a href=" {{ url_for('sites') }} ">Site List</a></li>
             <li><a href=" {{ url_for('new_site') }} ">New Site</a></li>
           </ul>
-          {% block navbar_right %}
+          <!-- Disbale login button as long there is no login functionality: -->
+          <!-- {% block navbar_right %}
           <ul class="nav navbar-nav pull-right">
             {% if not session.logged_in %}
               <li><a href="#">Login or Signup</a></li>
@@ -40,7 +41,7 @@
               <li><a href="#">Logout</a></li>
             {% endif %}
           </ul>
-          {% endblock %}
+          {% endblock %} -->
         </div><!--/.nav-collapse -->
       </div>
     </div>
