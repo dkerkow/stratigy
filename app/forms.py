@@ -26,3 +26,7 @@ class NewRecordForm(Form):
                     Required(message='Please enter an attribute')])
     value           = TextField('Value', [
                     Required(message='Please enter a value')])
+
+class SearchSitesForm(Form):
+    site_name   = TextField('Site Name')
+    key_name    = TextField('Key Name')
