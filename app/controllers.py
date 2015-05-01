@@ -7,8 +7,7 @@ from flask import Blueprint, request, render_template, \
 import simplejson as json
 
 from app import app, db
-from app.forms import NewSiteForm
-from app.forms import NewRecordForm
+from app.forms import NewSiteForm, NewRecordForm, SearchSitesForm
 from app.models import Site, Record
 
 ### Controllers ###
@@ -147,3 +146,21 @@ def data(site_id=None):
         geojson = json.dumps(geojson_data)
         resp = Response(geojson, status=200, mimetype='application/json')
         return resp
+
+
+@app.route('/search/', methods=['GET', 'POST'])
+def search():
+    form = SearchSitesForm()
+    sites = []
+    if form.validate_on_submit():
+
+        site_name = request.form['site_name']
+        key_name = request.form['key_name']
+
+        sites = Site.query.filter_by(site_name=site_name).all()
+
+    return render_template(
+        'search.html',
+        form=form,
+        sites=sites
+    )
