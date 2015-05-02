@@ -7,7 +7,9 @@ from flask import Blueprint, request, render_template, \
 import simplejson as json
 
 from app import app, db
-from app.forms import NewSiteForm, NewRecordForm, SearchSitesForm
+from app.forms import NewSiteForm, NewRecordForm, SearchSitesForm, \
+                      AddRecordProperty
+
 from app.models import Site, Record
 
 ### Controllers ###
@@ -164,3 +166,52 @@ def search():
         form=form,
         sites=sites
     )
+
+
+@app.route('/record/<int:record_id>', methods=['GET', 'POST'])
+def edit_record(record_id=None):
+    # POST
+    form = AddRecordProperty()
+
+    if form.validate_on_submit():
+        attribute = request.form['attribute']
+        value     = request.form['value']
+
+        record = Record.query.filter_by(id=record_id).one()
+        properties = json.loads(record.properties)
+
+        # check if new attribute already exists:
+        if attribute in properties:
+            # gib Fehler aus
+            flash('Error: Attribute {} already exists!'.format(attribute))
+        else:
+            # append new property
+            properties[attribute] = value
+
+            # write to DB
+            record.properties = properties
+            db.session.commit()
+            flash('Successfully saved!')
+
+        return redirect(url_for('edit_record', record_id=record_id))
+
+    # GET
+    try:
+        record = Record.query.get_or_404(record_id)
+    except:
+        return render_template('404.html'), 404
+    else:
+        record = Record.query.filter_by(id=record_id).one()
+        site = Site.query.filter_by(id=record.site_id).one()
+        properties = json.loads(record.properties)
+
+        return render_template(
+            'edit_record.html',
+            form=form,
+            id=record.id,
+            depth=record.depth,
+            upper_boundary=record.upper_boundary,
+            lower_boundary=record.lower_boundary,
+            properties=properties,
+            site_name=site.site_name
+        )
