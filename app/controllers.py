@@ -229,3 +229,16 @@ def delete_record(record_id=None):
         db.session.commit()
         flash('Record successfully deleted!')
         return redirect(url_for('edit', site_id=site_id))
+
+@app.route('/site/delete/<int:site_id>', methods=['GET'])
+def delete_site(site_id=None):
+    try:
+        site = Site.query.filter_by(id=site_id).one()
+    except:
+        return render_template('404.html'), 404
+    else:
+        # delete the site, cascades to related records
+        db.session.delete(site)
+        db.session.commit()
+        flash('Site and Records successfully deleted!')
+        return redirect(url_for('sites'))

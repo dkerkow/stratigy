@@ -26,7 +26,12 @@ class Site(Base):
     # Location of the stratigraphic record:
     geom            = db.Column(Geometry(geometry_type='POINT', srid=4326))
 
-    records         = db.relationship('Record', backref='site', lazy='dynamic')
+    records         = db.relationship(
+                        'Record',
+                        backref='site',
+                        lazy='dynamic',
+                        cascade="all, delete, delete-orphan"
+                    )
 
     # New instance instantiation procedure:
     def __init__(self, site_name, geom_x, geom_y):
