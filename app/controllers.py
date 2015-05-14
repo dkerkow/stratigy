@@ -213,7 +213,8 @@ def edit_record(record_id=None):
             upper_boundary=record.upper_boundary,
             lower_boundary=record.lower_boundary,
             properties=properties,
-            site_name=site.site_name
+            site_name=site.site_name,
+            site_id=site.id
         )
 
 

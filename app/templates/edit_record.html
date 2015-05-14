@@ -4,7 +4,13 @@
 {% block content %}
 
   <div class="page-header">
-    <h2>Edit Record: {{ id }} (Site: {{ site_name }})</h2>
+    <h2>
+      Record: {{ id }}
+      <small>
+        <a href="{{ url_for('edit', site_id=site_id) }}">Site: {{ site_name }}
+        </a>
+      </small>
+    </h2>
   </div>
 
   <a class="btn btn-danger" href="{{ url_for('delete_record', record_id=id) }}" role="button">
