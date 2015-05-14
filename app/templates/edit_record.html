@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %} - Edit Record{% endblock %}
+
+{% block content %}
+
+  <div class="page-header">
+    <h2>Edit Record: {{ id }} (Site: {{ site_name }})</h2>
+  </div>
+
+  <a class="btn btn-danger" href="{{ url_for('delete_record', record_id=id) }}" role="button">
+    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+    Delete Record
+  </a>
+
+  <p>
+
+  </p>
+
+  <!-- Panel -->
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">Add Attribute/Value</h3>
+    </div>
+
+    <!-- Panel Body -->
+    <div class="panel-body">
+
+      <!-- Row -->
+      <div class="row">
+        <!-- Form -->
+        <form action="{{ url_for('edit_record', record_id=id) }}" method="post">
+            {{ form.hidden_tag() }}
+
+        <div class="form-group col-xs-2">
+          <!--{{ form.attribute.label }}-->
+          {{ form.attribute(size=40, class="form-control", placeholder="Attribute") }}
+          {% for error in form.errors.attribute %}
+          <span style="color: red;">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group col-xs-2">
+          {{ form.value(size=40, class="form-control", placeholder="Value") }}
+          <!--{{ form.value.label}}-->
+          {% for error in form.errors.value %}
+          <span style="color: red;">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+      </div>
+      <!-- End Row -->
+    </div>
+    <!-- Panel Body End-->
+  </div>
+  <!-- End Panel -->
+
+  <!-- Table -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Attribute</th>
+        <th scope="col">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr valign="top">
+        <td>Upper Boundary</td>
+        <td>{{ upper_boundary }}</td>
+      </tr>
+      <tr valign="top">
+        <td>Depth</td>
+        <td>{{ depth }}</td>
+      </tr>
+      <tr valign="top">
+        <td>Lower Boundary</td>
+        <td>{{ lower_boundary }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Table End-->
+
+  <!-- Table -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Attribute</th>
+        <th scope="col">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for key, value in properties.iteritems() %}
+      <tr valign="top">
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- Table End-->
+
+{% endblock %}

@@ -122,8 +122,8 @@
         <th scope="col">Depth</th>
         <th scope="col">Upper Boundary</th>
         <th scope="col">Lower Boundary</th>
-        <th scope="col">Attribute</th>
-        <th scope="col">Value</th>
+        <th scope="col">Properties</th>
+        <th scope="col">Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -133,8 +133,12 @@
         <td>{{ record.depth }}</td>
         <td>{{ record.upper_boundary }}</td>
         <td>{{ record.lower_boundary }}</td>
-        <td>{{ record.attribute }}</td>
-        <td>{{ record.value }}</td>
+        <td>{{ record.properties }}</td>
+        <td>
+          <a class="btn btn-danger btn-xs" href="{{ url_for('delete_record', record_id=record.id) }}" role="button">
+            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+          </a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
