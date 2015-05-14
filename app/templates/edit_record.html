@@ -7,8 +7,13 @@
     <h2>Edit Record: {{ id }} (Site: {{ site_name }})</h2>
   </div>
 
+  <a class="btn btn-danger" href="{{ url_for('delete_record', record_id=id) }}" role="button">
+    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+    Delete Record
+  </a>
+
   <p>
-    
+
   </p>
 
   <!-- Panel -->

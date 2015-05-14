@@ -215,3 +215,17 @@ def edit_record(record_id=None):
             properties=properties,
             site_name=site.site_name
         )
+
+
+@app.route('/record/delete/<int:record_id>', methods=['GET'])
+def delete_record(record_id=None):
+    try:
+        record = Record.query.filter_by(id=record_id).one()
+    except:
+        return render_template('404.html'), 404
+    else:
+        site_id = record.site_id
+        db.session.delete(record)
+        db.session.commit()
+        flash('Record successfully deleted!')
+        return redirect(url_for('edit', site_id=site_id))
