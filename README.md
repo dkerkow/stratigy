@@ -6,8 +6,12 @@ Web application for working with stratigraphic data
 Development
 -----------
 
-The stratigy project is using Vagrant as development environment. It provides an
-interface for handling different providers, in this case Virtualbox.
+The stratigy project is using Vagrant as development environment. It
+provides an interface for handling different providers, in this case
+Virtualbox and LXC. Virtualbox is the generic option, because it works
+on all platforms. LXC just works on Linux, but has the advantage of not
+virtualizing a complete guest system, but using the kernel of the host
+instead, which saves a lot of ressources on the host.
 The properties of the virtual machine are configured in the Vagrantfile.
 
 ### Setup Development Environment
@@ -27,7 +31,7 @@ The properties of the virtual machine are configured in the Vagrantfile.
 
  ```bash
  # start or resume virtual machine (runs the provisioning, if there wasnt a saved state) :
- vagrant up
+ vagrant up [--provider=lxc]
  # ssh into virtual machine as user vagrant:
  vagrant ssh
  # save virtual machine and turn off
