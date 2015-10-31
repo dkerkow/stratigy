@@ -11,6 +11,7 @@ apt-get install -y \
     python-dev \
     python-software-properties \
     python-pip \
+    python-virtualenv \
     build-essential \
     git \
     libproj-dev \
@@ -21,9 +22,6 @@ apt-get install -y \
 sudo echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
     sudo apt-key add -
-
-# Install Python dependencies from Python Package Index:
-pip install -r /vagrant/requirements.txt
 
 # Update package index:
 apt-get update
@@ -45,7 +43,7 @@ useradd stratigy --home /srv/stratigy --create-home --shell /bin/bash
 sudo -u postgres psql -c "CREATE USER stratigy PASSWORD 'secret';"
 
 # add user stratigy to vagrant group for execution permission of app
-usermod -aG vagrant stratigy 
+usermod -aG vagrant stratigy
 
 # Setup databases:
 sudo -u postgres createdb stratigy_development --owner=stratigy
@@ -54,3 +52,10 @@ sudo -u postgres createdb stratigy_test --owner=stratigy
 # Setup PostGIS on databases
 sudo -u postgres psql -d stratigy_development -c 'CREATE EXTENSION postgis;'
 sudo -u postgres psql -d stratigy_test -c 'CREATE EXTENSION postgis;'
+
+# Install Python dependencies into dedicated virtual environment:
+su - vagrant -c 'virtualenv ~/stratigy_venv'
+su - vagrant -c 'source ~/stratigy_venv/bin/activate && pip install -r /vagrant/requirements.txt'
+
+# Activate virtualenv at login via .bashrc
+echo "source /home/vagrant/stratigy_venv/bin/activate" >> /home/vagrant/.bashrc
